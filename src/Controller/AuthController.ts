@@ -24,7 +24,7 @@ export class AuthController {
 
     const token = sign(
       { id: user.id },
-      process.env.SECRET_KEY ?? "FSMAFM2391MR21MDEFAULTSECRET",
+      process.env.SECRET_KEY || "",
       { expiresIn: "1d" }
     );
 

@@ -23,7 +23,6 @@ export class UserController {
         name,
         email,
         password: passwordHash,
-        role,
       },
     });
     return res.json({ user });

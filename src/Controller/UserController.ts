@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { prisma } from "../utils/Prisma";
-import { hash } from "bcryptjs";
+import { Request, Response } from 'express';
+import { prisma } from '../utils/Prisma';
+import { hash } from 'bcryptjs';
 
 export class UserController {
   async list(req: Request, res: Response) {
@@ -9,13 +9,13 @@ export class UserController {
   }
 
   async create(req: Request, res: Response) {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     const passwordHash = await hash(password, 8);
     const userExists = await prisma.user.findUnique({ where: { email } });
 
     if (userExists) {
-      return res.status(404).json({ Message: "Sorry, user alrealy exists" });
+      return res.status(404).json({ Message: 'Sorry, user alrealy exists' });
     }
 
     const user = await prisma.user.create({

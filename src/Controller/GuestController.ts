@@ -8,7 +8,7 @@ export class GuestController {
   }
 
   async create(req: Request, res: Response) {
-    const { firstName, lastName, email, address, phoneNumber } = req.body;
+    const { firstName, lastName, email, address, phoneNumbr } = req.body;
     const guest = await prisma.guest.create({
       data: {
         firstName,

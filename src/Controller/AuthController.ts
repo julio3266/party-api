@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { prisma } from "../utils/Prisma";
-import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { Request, Response } from 'express';
+import { prisma } from '../utils/Prisma';
+import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 
 export class AuthController {
   async auth(req: Request, res: Response) {
@@ -11,7 +11,7 @@ export class AuthController {
     if (!user) {
       return res
         .status(404)
-        .json({ Message: "Sorry, email or password is incorrect" });
+        .json({ Message: 'Sorry, email or password is incorrect' });
     }
 
     const isValidPassword = await compare(password, user.password);
@@ -19,14 +19,12 @@ export class AuthController {
     if (!isValidPassword) {
       return res
         .status(404)
-        .json({ Message: "Sorry, email or password is incorrect" });
+        .json({ Message: 'Sorry, email or password is incorrect' });
     }
 
-    const token = sign(
-      { id: user.id },
-      process.env.SECRET_KEY || "",
-      { expiresIn: "1d" }
-    );
+    const token = sign({ id: user.id }, process.env.SECRET_KEY || '', {
+      expiresIn: '1d',
+    });
 
     return res.json({ user, token });
   }
